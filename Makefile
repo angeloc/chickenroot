@@ -12,6 +12,7 @@ BR2T_TMP_DIR = $(BR2T_UPD_DIR)/tmp
 BR2T_ID := $(shell git log -1 --pretty=format:"%h")
 
 export BR2_DL_DIR='$(CURDIR)/$(BR2T_DL)'
+export BR2_JLEVEL=$(shell nproc)
 
 all: image update
 
@@ -43,10 +44,10 @@ $(BR2T_DEFCONFIG) $(BR2T_RECOVERY_DEFCONFIG): $(BR2T_CONFIG) $(BR2T_RECOVERY_CON
 	$(MAKE) -l -C out/$@ $(subst $@,,$(MAKECMDGOALS))
 
 image: $(BR2T_CONFIG) $(BR2T_RECOVERY_CONFIG)
-	$(MAKE) -l -C out/$(BR2T_DEFCONFIG) source
-	$(MAKE) -l -C out/$(BR2T_DEFCONFIG)
-	$(MAKE) -l -C out/$(BR2T_RECOVERY_DEFCONFIG) source
-	$(MAKE) -l -C out/$(BR2T_RECOVERY_DEFCONFIG)
+	$(MAKE) -C out/$(BR2T_DEFCONFIG) source
+	$(MAKE) -C out/$(BR2T_DEFCONFIG)
+	$(MAKE) -C out/$(BR2T_RECOVERY_DEFCONFIG) source
+	$(MAKE) -C out/$(BR2T_RECOVERY_DEFCONFIG)
 	@for file in $(BR2T_IMAGE_FILES); do \
 		cp -v "$${file%%:*}" ${BR2T_IMG_DIR}/"$${file##*:}"; \
 	done
