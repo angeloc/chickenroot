@@ -1,8 +1,6 @@
 include br-template.config
 
-BR2T_BR_FILE = buildroot-$(BR2T_VERSION).tar.bz2
 BR2T_CONFIG = out/$(BR2T_DEFCONFIG)/.config
-BR2T_RECOVERY_CONFIG = out/$(BR2T_RECOVERY_DEFCONFIG)/.config
 BR2T_DL = out/dl
 BR2T_BR_DIR = out/buildroot-$(BR2T_VERSION)
 BR2T_IMG_DIR = out/images
@@ -27,9 +25,10 @@ $(BR2T_EXTERNAL)/external.desc:
 
 $(BR2T_BR_DIR):
 	@mkdir -p $(BR2T_DL)
-	@wget -c https://buildroot.org/downloads/$(BR2T_BR_FILE) \
+	@wget -c $(BR2T_BR_URL)/$(BR2T_BR_FILE) \
 		-O $(BR2T_DL)/$(BR2T_BR_FILE)
-	@tar axf $(BR2T_DL)/$(BR2T_BR_FILE) -C out
+	@mkdir -p $(BR2T_BR_DIR)
+	@tar axf $(BR2T_DL)/$(BR2T_BR_FILE) -C $(BR2T_BR_DIR) --strip-components 1
 
 $(BR2T_CONFIG): $(BR2T_BR_DIR) $(BR2T_EXTERNAL)/external.desc
 	$(MAKE) -C out/buildroot-$(BR2T_VERSION) O=../$(BR2T_DEFCONFIG) \
