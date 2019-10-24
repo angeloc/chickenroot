@@ -6,6 +6,7 @@ BR2T_BR_DIR = out/buildroot-$(BR2T_VERSION)
 BR2T_IMG_DIR = out/images
 BR2T_UPD_DIR = out/update
 BR2T_TMP_DIR = $(BR2T_UPD_DIR)/tmp
+BR2T_JLEVEL ?= $(shell nproc)
 
 ifneq ($(BR2T_RECOVERY_DEFCONFIG),)
 BR2T_RECOVERY_CONFIG = out/$(BR2T_RECOVERY_DEFCONFIG)/.config
@@ -14,7 +15,7 @@ endif
 BR2T_ID := $(shell git log -1 --pretty=format:"%h")
 
 export BR2_DL_DIR='$(CURDIR)/$(BR2T_DL)'
-export BR2_JLEVEL=$(shell nproc)
+export BR2_JLEVEL=$(BR2T_JLEVEL)
 
 all: image update
 
