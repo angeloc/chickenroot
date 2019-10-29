@@ -1,1 +1,2 @@
 # Example: source "buildroot-external/package/package1/Config.in"
+source ../../buildroot-external/package/pwm-gpio/Config.in
