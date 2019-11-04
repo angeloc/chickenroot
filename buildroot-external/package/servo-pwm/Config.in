@@ -1,0 +1,6 @@
+config BR2_PACKAGE_SERVO_PWM
+	bool "servo-pwm"
+	help
+	  Kernel driver for controlling servo motor on pwm.
+
+	  https://github.com/angeloc/pwm-gpio
