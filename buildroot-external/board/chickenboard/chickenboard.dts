@@ -66,6 +66,17 @@
 		};
 
 	};
+
+	pwm0: pwm@0 {
+		compatible = "pwm-gpio";
+		pwm-gpio = <&pio 6 1 GPIO_ACTIVE_LOW>;
+		#pwm-cells = <2>;
+	};
+
+	servo0: servo@0 {
+		compatible = "servo-pwm";
+		pwms = <&pwm0 0 20000000>;
+	};
 };
 
 &mmc0 {
